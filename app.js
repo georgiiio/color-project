@@ -1,5 +1,13 @@
 const cols = document.querySelectorAll('.col')
 
+swal({
+  position: 'top-right',
+  type: 'info',
+  title: 'Use space to change a colors',
+  showConfirmButton: false,
+  timer: 2000
+})
+
 document.addEventListener('keydown', (event) => {
   event.preventDefault()
   if (event.code == 'Space') {
@@ -19,6 +27,7 @@ document.addEventListener('click', event => {
     node.classList.toggle('fa-lock')
   } else if (type == 'copy'){
     copyToClickboard(event.target.textContent)
+    swal("You copy a color",'', "success")
   }
 })
 
