@@ -7,9 +7,7 @@ body{
 }
 
 .col {
-	border: 1px solid darkgrey;
 	flex: 1;
-	background-color: grey;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
