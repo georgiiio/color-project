@@ -1,5 +1,3 @@
-const cols = document.querySelectorAll('.col')
-
 swal({
   position: 'top-right',
   type: 'info',
@@ -8,28 +6,46 @@ swal({
   timer: 2000
 })
 
-document.addEventListener('keydown', (event) => {
+function onKeydown (event){
   event.preventDefault()
   if (event.code == 'Space') {
     setRandomColor()
   }
-})
+}
 
-document.addEventListener('click', event => {
-  const type = event.target.dataset.type
+// function onClickText (event){
+//   const type = event.target.dataset.type
 
-  if (type == 'lock'){
-    const node = event.target.tagName.toLowerCase() == 'i'
-      ? event.target
-      : event.target.children[0]
+//   if (type == 'lock'){
+//     const node = event.target.tagName.toLowerCase() == 'i'
+//       ? event.target
+//       : event.target.children[0]
 
-    node.classList.toggle('fa-lock-open')
-    node.classList.toggle('fa-lock')
-  } else if (type == 'copy'){
+//     node.classList.toggle('fa-lock-open')
+//     node.classList.toggle('fa-lock')
+//   } else if (type == 'copy'){
+//     copyToClickboard(event.target.textContent)
+//     swal("You copy a color",'', "success")
+//   }
+// }
+
+function onClick (event) {
+  const target = event.target
+  const clickBtn = target.closest( '[data-type="lock"]' )
+
+  if (clickBtn){
+    const elem = clickBtn.querySelectorAll( '.lock-icon' )[0]
+    console.log(elem)
+    elem.classList.toggle( 'fa-lock-open' )
+    elem.classList.toggle( 'fa-lock' )
+  
+  } else if (target.dataset.type == 'copy'){
     copyToClickboard(event.target.textContent)
-    swal("You copy a color",'', "success")
+    swal( "You copy a color",'', "success" )
+
   }
-})
+}
+
 
 function copyToClickboard(text){
   return navigator.clipboard.writeText(text)
@@ -37,6 +53,7 @@ function copyToClickboard(text){
 
 function setRandomColor(){
   cols.forEach((col) => {
+
     const isLocked = col.querySelector('i').classList.contains('fa-lock')
     const text = col.querySelector('h2')
     const button = col.querySelector('button')
@@ -59,4 +76,12 @@ function setTextColor(text, color){
   text.style.color = luminance > 0.5 ? 'black' : 'white'
 }
 
-setRandomColor()
+function onAppReady() {
+  cols = document.querySelectorAll('.col')
+
+  document.addEventListener('keydown', onKeydown)
+  document.addEventListener('click', onClick)
+  setRandomColor()
+}
+
+document.addEventListener('DOMContentLoaded', onAppReady)

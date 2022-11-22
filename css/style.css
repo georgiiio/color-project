@@ -1,9 +1,9 @@
 @import url(reset.css);
 
 body{
- height: 100vh;
- display: flex;
- font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
 }
 
 .col {
